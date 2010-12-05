@@ -1,0 +1,4 @@
+cron:
+- description: ping reddit
+  url: /ping
+  schedule: every 1 minutes synchronized
