@@ -2,3 +2,20 @@ cron:
 - description: ping reddit
   url: /ping
   schedule: every 1 minutes synchronized
+
+- description: average data for the last five minutes
+  url: /preprocess/5
+  schedule: every 5 minutes synchronized
+
+- description: average data for the last fifteen minutes
+  url: /preprocess/15
+  schedule: every 15 minutes synchronized
+
+- description: average data for the last thirty minutes
+  url: /preprocess/30
+  schedule: every 30 minutes synchronized
+
+- description: average data for the last hour
+  url: /preprocess/60
+  schedule: every 1 hours synchronized
+

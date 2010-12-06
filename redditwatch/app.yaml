@@ -5,7 +5,13 @@ api_version: 1
 
 handlers:
 - url: /ping
-  script: ping.py
+  script: cron/ping.py
   login: admin
+
+- url: /preprocess/\d+
+  script: cron/preprocess.py
+  login: admin
+
 - url: .*
   script: main.py
+
