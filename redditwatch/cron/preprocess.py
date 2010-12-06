@@ -19,14 +19,17 @@ def main():
         start    = start,
         interval = interval,
         samples  = samples,
-        min_delay = min(ping.duration for ping in query) if samples else None,
-        max_delay = max(ping.duration for ping in query) if samples else None,
-        avg_delay = sum(ping.duration for ping in query) / samples if samples else None,
     )
 
-    for ping in query:
-        status_count = getattr(average_result, 'status_%d' % ping.status_code, 0)
-        setattr(average_result, 'status_%d' % ping.status_code, status_count + 1)
+    if samples:
+        average_result.min_delay = min(ping.duration for ping in query)
+        average_result.max_delay = max(ping.duration for ping in query)
+        average_result.avg_delay = sum(ping.duration for ping in query) / samples
+
+        for ping in query:
+            if hasattr(ping, 'status_code'):
+                status_count = getattr(average_result, 'status_%d' % ping.status_code, 0)
+                setattr(average_result, 'status_%d' % ping.status_code, status_count + 1)
 
     average_result.put()
 

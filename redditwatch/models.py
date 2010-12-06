@@ -1,7 +1,7 @@
 from google.appengine.ext import db
 
 class PingResultModel(db.Expando):
-    timestamp   = db.DateTimeProperty()
+    timestamp   = db.DateTimeProperty(required=True)
     duration    = db.FloatProperty()
     status_code = db.IntegerProperty()
     content     = db.TextProperty()
@@ -15,9 +15,9 @@ class PingResultModel(db.Expando):
 
 
 class AverageResultModel(db.Expando):
-    start    = db.DateTimeProperty()
-    interval = db.IntegerProperty()
-    samples  = db.IntegerProperty()
+    start    = db.DateTimeProperty(required=True)
+    interval = db.IntegerProperty(required=True)
+    samples  = db.IntegerProperty(required=True)
 
     min_delay = db.FloatProperty()
     max_delay = db.FloatProperty()

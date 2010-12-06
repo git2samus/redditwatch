@@ -8,8 +8,9 @@ from models import PingResultModel
 
 url = 'http://reddit.com/' # url to ping
 deadline = 10              # timeout in secs (max 10)
+
 # http://code.google.com/p/googleappengine/issues/detail?id=739
-headers = {
+request_headers = {
     'Cache-Control': 'max-age=0',
 }
 
@@ -19,12 +20,10 @@ def main():
     timestamp = datetime.utcnow()
 
     try:
-        result = urlfetch.fetch(url, headers=headers, deadline=deadline)
+        result = urlfetch.fetch(url, headers=request_headers, deadline=deadline)
     except urlfetch.Error:
         ping_result = PingResultModel(
             timestamp   = timestamp,
-            duration    = float(deadline),
-            status_code = -1,
             content     = db.Text(traceback.format_exc()),
         )
     else:
